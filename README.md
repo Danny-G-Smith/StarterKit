@@ -1,6 +1,6 @@
-# UpGulp
+# StarterKit aka UpGulp
 
-UpGulp is our gulp module.  It contains all of the configuration, setup, and tasks for processing themes, plugins, and whatever else.
+StarterKit is our gulp module.  It contains all of the configuration, setup, and tasks for processing.
 	 	
 ## Features
 
@@ -11,14 +11,13 @@ Instead, we split our gulp tasks out in the `app/gulp/tasks` folder.  The main f
 It includes:
 
 - Scripts
-    - Concatentates all the scripts found in `app/js/*.js`
+    - Concatenates all the scripts found in `app/js/*.js`
     - Renames the combined file with a `.min` suffix
     - Minifies that file
-    - And then stores it into the configured distribution folder, default is `app/dist/`
+    - And then stores it into the configured distribution folder, default is `dist/`
     - You can name the file whatever you want via the Configuration file
 - Styles
     - Uses [gulp-sourcemaps](https://www.npmjs.com/package/gulp-sourcemaps) - for debug ease
-    - Loads in both [Bourbon](https://www.npmjs.com/package/bourbon) and [Neat](https://www.npmjs.com/package/bourbon-neat)
     - Process with [gulp-sass](https://www.npmjs.com/package/gulp-sass)
     - Runs [postcss](https://www.npmjs.com/package/postcss)
     - Includes [sass-rem](https://www.npmjs.com/package/sass-rem)
@@ -34,15 +33,13 @@ It includes:
 
 ### Sass Features
 
-This gulp starter has Bourbon, Neat, and Sass REM baked into it.  To use these in your `style.scss` file and project, do the following:
+This gulp starter has Sass REM baked into it.  To use these in your `style.scss` file and project, do the following:
 
 ```
-@import 'bourbon';
-@import 'neat';
 @import '../../node_modules/sass-rem/rem';
 ```
 
-REM is being deprecated out of Bourbon.  Using the `sass-rem` module lets us import the functionality we want.  To convert pixels into rems, add the following into your Sass declaration:
+Using the `sass-rem` module lets us import the functionality we want.  To convert pixels into rems, add the following into your Sass declaration:
 
 `@include rem( font-size, 18px );`
 
@@ -68,10 +65,13 @@ To run it, open terminal and type `gulp watch`.  There are various watchers avai
     
 - `gulp scripts`
 - `gulp styles`
+- `gulp sass-lint`
+- `gulp sass-doc`
 - `gulp sprites`
 - `gulp i18n`
 - `gulp icons`
 - `gulp imagemin`
+- `gulp watch`
 
 ## Credit
 

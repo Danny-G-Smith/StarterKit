@@ -154,15 +154,21 @@ module.exports = function( moduleRoot ) {
          dest: distDirs.css,
          file: 'Styles.min.css'
       },
-      sassLint: {
+      sasslint: {
          src: [ distDirs.css + '/**/*.min.css', distDirs.css + '/**/*.css' ],
          dest: distDirs.css
+      },
+      sassdoc: {
+         sass: [ distDirs.scss + '/**/*.scss' ],
+         src: [ distDirs.scss + '/**/*.scss' ],
+         dest: 'docs/',
+         verbose: true
       }
    };
 
    let scriptsSettings = {
       clean: {
-         src: [ distDirs.scripts + '*.*' ]
+         src: [ distDirs.scripts + '*.js' ]
       },
       concat: {
          src: paths.concatScripts,

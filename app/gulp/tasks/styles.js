@@ -18,7 +18,9 @@
 
 module.exports = function( gulp, plugins, config ) {
 
-   let handleErrors = require( config.gulpDir + 'utils/handleErrors.js' ),
+   var handleErrors = require( config.gulpDir + 'utils/handleErrors.js' ),
+      sassdoc = require( 'sassdoc' ),
+      sasslint = require( 'gulp-sass-lint' ),
       mqpacker = require( 'css-mqpacker' ),
       runSequence = require( 'run-sequence' ).use( gulp ),
       concat = require( 'gulp-concat' ),
@@ -34,14 +36,14 @@ module.exports = function( gulp, plugins, config ) {
     * @since 1.0.1
     */
    gulp.task( 'styles', function( callback ) {
-
       runSequence( 'styles-clean',
          'styles-build-sass',
          'styles-minify',
          'styles-finalize',
          'styles-final-clean',
          'styles-concatenated',
-         //'styles-lint',
+         //'sass-lint',
+         //'sass-doc',
          callback );
    } );
 
@@ -79,8 +81,20 @@ module.exports = function( gulp, plugins, config ) {
       return stylesConcatenated( config.styles.concatenated );
    } );
 
-   gulp.task( 'styles-lint', function() {
-      return sassLint( config.styles.sassLint );
+   gulp.task( 'sass-lint', function() {
+     // return sassLint( config.styles.sasslint );
+      let settings = config.styles.sasslint;
+      gulp.src( settings.src )
+         .pipe( sasslint() )
+         .pipe( sasslint.format() )
+         .pipe( sasslint.failOnError() );
+   } );
+
+   gulp.task( 'sass-doc', function() {
+      //return sassdoc( config.styles.sassdoc );
+      let settings = config.styles.sassdoc;
+      return gulp.src( settings.sass )
+         .pipe( sassdoc( settings ) );
    } );
 
    /*******************
@@ -111,7 +125,6 @@ module.exports = function( gulp, plugins, config ) {
     */
    function buildSass( settings ) {
       return gulp.src( settings.src )
-
 
          .pipe( plugins.plumber( {
             errorHandler: handleErrors
@@ -213,10 +226,21 @@ module.exports = function( gulp, plugins, config ) {
     *
     * @returns {*}
     */
-   function sassLint( settings ) {
-      gulp.src( settings.src )
-         .pipe( plugins.sassLint() )
-         .pipe( plugins.sassLint.format() )
-         .pipe( plugins.sassLint.failOnError() );
-   };
+   // function sassLint( settings ) {
+   //    gulp.src( settings.src )
+   //       .pipe( plugins.sasslint() )
+   //       .pipe( plugins.sasslint.format() )
+   //       .pipe( plugins.sasslint.failOnError() );
+   // }
+
+   /**
+    * Sass docs.
+    *
+    * http://sassdoc.com/getting-started/
+    */
+   // function sassdoc( settings ) {
+   //
+   //    return gulp.src( settings.sass )
+   //       .pipe( sassdoc( settings ) );
+   // }
 };
