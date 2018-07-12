@@ -42,12 +42,12 @@ module.exports = function( gulp, plugins, config ) {
 
       return gulp.src( settings.src )
 
-                 // Deal with errors.
-                 .pipe( plugins.plumber( { errorHandler: handleErrors } ) )
+      // Deal with errors.
+         .pipe( plugins.plumber( { errorHandler: handleErrors } ) )
 
-                 .pipe( plugins.sort() )
-                 .pipe( wpPot( settings.wppot ) )
-                 .pipe( gulp.dest( settings.dest ) ).on( 'end', function() {
+         .pipe( plugins.sort() )
+         .pipe( wpPot( settings.wppot ) )
+         .pipe( gulp.dest( settings.dest ) ).on( 'end', function() {
             plugins.util.log( plugins.util.colors.inverse( 'Translations are now done....[i18n:pot()]' ) );
          } );
    }

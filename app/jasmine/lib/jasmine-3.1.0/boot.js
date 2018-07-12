@@ -68,10 +68,10 @@
     */
 
    let queryString = new jasmine.QueryString( {
-                                                 getWindowLocation: function() {
-                                                    return window.location;
-                                                 }
-                                              } );
+      getWindowLocation: function() {
+         return window.location;
+      }
+   } );
 
    let filterSpecs = !!queryString.getParam( 'spec' );
 
@@ -97,25 +97,25 @@
     * The `HtmlReporter` builds all of the HTML UI for the runner page. This reporter paints the dots, stars, and x's for specs, as well as all spec names and all failures (if any).
     */
    let htmlReporter = new jasmine.HtmlReporter( {
-                                                   env: env,
-                                                   navigateWithNewParam: function( key, value ) {
-                                                      return queryString.navigateWithNewParam( key, value );
-                                                   },
-                                                   addToExistingQueryString: function( key, value ) {
-                                                      return queryString.fullStringWithNewParam( key, value );
-                                                   },
-                                                   getContainer: function() {
-                                                      return document.body;
-                                                   },
-                                                   createElement: function() {
-                                                      return document.createElement.apply( document, arguments );
-                                                   },
-                                                   createTextNode: function() {
-                                                      return document.createTextNode.apply( document, arguments );
-                                                   },
-                                                   timer: new jasmine.Timer(),
-                                                   filterSpecs: filterSpecs
-                                                } );
+      env: env,
+      navigateWithNewParam: function( key, value ) {
+         return queryString.navigateWithNewParam( key, value );
+      },
+      addToExistingQueryString: function( key, value ) {
+         return queryString.fullStringWithNewParam( key, value );
+      },
+      getContainer: function() {
+         return document.body;
+      },
+      createElement: function() {
+         return document.createElement.apply( document, arguments );
+      },
+      createTextNode: function() {
+         return document.createTextNode.apply( document, arguments );
+      },
+      timer: new jasmine.Timer(),
+      filterSpecs: filterSpecs
+   } );
 
    /**
     * The `jsApiReporter` also receives spec results, and is used by any environment that needs to extract the results  from JavaScript.
@@ -127,10 +127,10 @@
     * Filter which specs will be run by matching the start of the full name against the `spec` query param.
     */
    let specFilter = new jasmine.HtmlSpecFilter( {
-                                                   filterString: function() {
-                                                      return queryString.getParam( 'spec' );
-                                                   }
-                                                } );
+      filterString: function() {
+         return queryString.getParam( 'spec' );
+      }
+   } );
 
    env.specFilter = function( spec ) {
       return specFilter.matches( spec.getFullName() );

@@ -25,15 +25,15 @@ module.exports = function( gulp, plugins, config ) {
 
       gulp.src( settings.src )
 
-          // Deal with errors.
-          .pipe( plugins.plumber( { errorHandler: handleErrors } ) )
+      // Deal with errors.
+         .pipe( plugins.plumber( { errorHandler: handleErrors } ) )
 
-          .pipe( plugins.imagemin( {
-                                      optimizationLevel: 5,
-                                      progressive: true,
-                                      interlaced: true
-                                   } ) )
-          .pipe( gulp.dest( settings.dest ) ).on( 'end', function() {
+         .pipe( plugins.imagemin( {
+            optimizationLevel: 5,
+            progressive: true,
+            interlaced: true
+         } ) )
+         .pipe( gulp.dest( settings.dest ) ).on( 'end', function() {
          plugins.util.log( plugins.util.colors.inverse( 'Images are optimized....[imagemin()]' ) );
       } );
    };

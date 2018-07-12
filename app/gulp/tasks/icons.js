@@ -48,24 +48,24 @@ module.exports = function( gulp, plugins, config ) {
 
       return gulp.src( settings.src )
 
-                 // Deal with errors.
-                 .pipe( plugins.plumber( { errorHandler: handleErrors } ) )
+      // Deal with errors.
+         .pipe( plugins.plumber( { errorHandler: handleErrors } ) )
 
-                 .pipe( plugins.svgmin() )
-                 .pipe( plugins.rename( { prefix: 'icon-' } ) )
-                 .pipe( plugins.svgstore( { inlineSvg: true } ) )
-                 .pipe( plugins.cheerio( {
-                                            run: function( $, file ) {
-                                               $( 'svg' ).attr( 'style', 'display:none' );
-                                               $( '[fill]' ).removeAttr( 'fill' );
-                                            },
-                                            parserOptions: { xmlMode: true }
-                                         } ) )
+         .pipe( plugins.svgmin() )
+         .pipe( plugins.rename( { prefix: 'icon-' } ) )
+         .pipe( plugins.svgstore( { inlineSvg: true } ) )
+         .pipe( plugins.cheerio( {
+            run: function( $, file ) {
+               $( 'svg' ).attr( 'style', 'display:none' );
+               $( '[fill]' ).removeAttr( 'fill' );
+            },
+            parserOptions: { xmlMode: true }
+         } ) )
 
-                 .pipe( gulp.dest( settings.dest ) ).on( 'end', function() {
+         .pipe( gulp.dest( settings.dest ) ).on( 'end', function() {
             plugins.util.log( plugins.util.colors.inverse( 'Icons are now optimized....[icons:svg()]' ) );
          } )
-                 .pipe( browserSync.stream() )
-                 .pipe( plugins.notify( { message: 'Icons are optimized.' } ) );
+         .pipe( browserSync.stream() )
+         .pipe( plugins.notify( { message: 'Icons are optimized.' } ) );
    };
 };

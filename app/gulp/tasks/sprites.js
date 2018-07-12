@@ -53,18 +53,18 @@ module.exports = function( gulp, plugins, config ) {
 
       return gulp.src( settings.src )
 
-                 // Deal with errors.
-                 .pipe( plugins.plumber( { errorHandler: handleErrors } ) )
-                 .pipe( plugins.spritesmith( {
-                                                imgName: 'sprites.png',
-                                                cssName: '../../app/sass/base/_sprites.scss',
-                                                imgPath: 'app/images/sprites.png',
-                                                algorithm: 'binary-tree'
-                                             } ) )
-                 .pipe( gulp.dest( settings.dest ) ).on( 'end', function() {
+      // Deal with errors.
+         .pipe( plugins.plumber( { errorHandler: handleErrors } ) )
+         .pipe( plugins.spritesmith( {
+            imgName: 'sprites.png',
+            cssName: '../../app/sass/base/_sprites.scss',
+            imgPath: 'app/images/sprites.png',
+            algorithm: 'binary-tree'
+         } ) )
+         .pipe( gulp.dest( settings.dest ) ).on( 'end', function() {
             plugins.util.log( plugins.util.colors.inverse( 'Sprites are now optimized....[spritesmith()]' ) );
          } )
-                 .pipe( plugins.notify( { message: 'Stripes are optimized.' } ) )
-                 .pipe( plugins.browserSync.stream() );
+         .pipe( plugins.notify( { message: 'Stripes are optimized.' } ) )
+         .pipe( plugins.browserSync.stream() );
    };
 };

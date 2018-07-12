@@ -13,8 +13,8 @@
 module.exports = function( gulp, plugins, config ) {
 
    let handleErrors = require( config.gulpDir + 'utils/handleErrors.js' ),
+      notify = require( 'gulp-notify' ),
       runSequence = require( 'run-sequence' ).use( gulp );
-
 
    /**
     * scripts task which is callable
@@ -27,6 +27,7 @@ module.exports = function( gulp, plugins, config ) {
    gulp.task( 'scripts', function( callback ) {
       runSequence(
          'scripts-clean',
+         'scripts-lebab',
          'scripts-build-concat',
          'scripts-minify',
          callback );
@@ -40,6 +41,10 @@ module.exports = function( gulp, plugins, config ) {
 
    gulp.task( 'scripts-build-concat', function() {
       return concatScripts();
+   } );
+
+   gulp.task( 'scripts-lebab', function() {
+      return scriptsLebab();
    } );
 
    gulp.task( 'scripts-minify', function() {
@@ -74,9 +79,35 @@ module.exports = function( gulp, plugins, config ) {
 
       return gulp.src( settings.src )
 
-                 .pipe( plugins.plumber( { errorHandler: handleErrors } ) )
-                 .pipe( plugins.concat( settings.concatSrc ) )
-                 .pipe( gulp.dest( settings.dest ) );
+         .pipe( plugins.plumber( { errorHandler: handleErrors } ) )
+         .pipe( plugins.concat( settings.concatSrc ) )
+         .pipe( gulp.dest( settings.dest ) );
+   }
+
+   /**
+    * Concatentate the scripts into one big butt file
+    *
+    * @since 1.0.0
+    *
+    * @returns {*}
+    */
+   function scriptsLebab() {
+      let handleErrors = require( config.gulpDir + 'utils/handleErrors.js' ),
+         settings = config.scripts.lebab,
+         gulp = require( 'gulp' ),
+         glebab = require( 'gulp-lebab' ),
+         print = require( 'gulp-print' ).default,
+         gutil = require( 'gulp-util' );
+
+      return gulp.src( settings.src )
+
+         .pipe( print() )
+         .pipe( glebab() )
+
+         .on( 'error', gutil.log )
+         .pipe( gulp.dest( settings.dest ) ).on( 'end', function() {
+            plugins.util.log( plugins.util.colors.inverse( 'Scripts have been lebabED....' ) );
+         } );
    }
 
    /**
@@ -89,11 +120,11 @@ module.exports = function( gulp, plugins, config ) {
       let uglify = require( 'gulp-uglify-es' ).default;
 
       return gulp.src( settings.src )
-                 .pipe( plugins.plumber( { errorHandler: handleErrors } ) )
+         .pipe( plugins.plumber( { errorHandler: handleErrors } ) )
 
-                 .pipe( plugins.rename( { suffix: '.min' } ) )
-                 .pipe( uglify() )
-                 .pipe( gulp.dest( settings.dest ) )
-                 .pipe( plugins.notify( { message: 'Scripts are built.' } ) );
-   };
+         .pipe( plugins.rename( { suffix: '.min' } ) )
+         .pipe( uglify() )
+         .pipe( gulp.dest( settings.dest ) )
+         .pipe( plugins.notify( { message: 'Scripts are built.' } ) );
+   }
 };

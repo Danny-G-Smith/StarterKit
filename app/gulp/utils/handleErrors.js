@@ -20,10 +20,10 @@ module.exports = function( error ) {
    let args = Array.prototype.slice.call( arguments );
 
    notify.onError( {
-                      title: 'Task Failed [<%= error.message %>',
-                      message: 'See console.',
-                      sound: 'Sosumi' // See: https://github.com/mikaelbr/node-notifier#all-notification-options-with-their-defaults
-                   } ).apply( this, args );
+      title: 'Task Failed [<%= error.message %>',
+      message: 'See console.',
+      sound: 'Sosumi' // See: https://github.com/mikaelbr/node-notifier#all-notification-options-with-their-defaults
+   } ).apply( this, args );
 
    gutil.beep(); // Beep 'sosumi' again
 

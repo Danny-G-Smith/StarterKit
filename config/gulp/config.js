@@ -170,8 +170,12 @@ module.exports = function( moduleRoot ) {
          concatSrc: distFilenames.concatScripts,
       },
       uglify: {
-         src: distDirs.scripts + '*.js',
+         src: distDirs.scripts + '**/*.js',
          dest: distDirs.scripts,
+      },
+      lebab: {
+         src: distDirs.scripts + '**/*.js',
+         dest: distDirs.scripts
       }
    };
 

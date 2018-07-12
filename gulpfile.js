@@ -20,8 +20,8 @@ let gulp = require( 'gulp' ),
     * This reduces redundancy and keeps us DRY.
     */
    plugins = require( 'gulp-load-plugins' )( {
-                                                pattern: '*'
-                                             } ),
+      pattern: '*'
+   } ),
    /**
     * Fetch where the `config.js` is located within the theme.  This value
     * is stored in the `package.json` file and keyed by `gulpConfig`.
